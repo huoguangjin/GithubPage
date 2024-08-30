@@ -32,9 +32,7 @@ class AuthRepoImpl(
     }
 
     init {
-        GlobalScope.launch(Dispatchers.Main) {
-            accessToken.value = readAccessToken()
-        }
+        accessToken.value = readAccessToken()
     }
 
     override fun logout() {
@@ -56,12 +54,10 @@ class AuthRepoImpl(
         }
     }
 
-    suspend fun readAccessToken(): String? = withContext(Dispatchers.IO) {
+    fun readAccessToken(): String? {
         val sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
         val token = sp.getString(SP_KEY_TOKEN, null)
-        withContext(Dispatchers.Main) {
-            token
-        }
+        return token
     }
 
     suspend fun saveAccessToken(token: String?) {

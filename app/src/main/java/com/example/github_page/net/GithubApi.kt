@@ -30,7 +30,7 @@ interface GithubApi {
         @Query("sort") sort: String?,
     ): SearchResp<Repo>
 
-    @POST("user")
+    @GET("user")
     @Headers("Accept: application/json")
     suspend fun getMyProfile(): GithubUser
 
