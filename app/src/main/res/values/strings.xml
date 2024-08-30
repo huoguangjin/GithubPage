@@ -16,6 +16,13 @@
 
     <string name="open_drawer">Open Drawer</string>
 
+    <string name="menu_sort">Sort</string>
+    <string name="menu_more">More</string>
+
+    <string name="sort_stars">Stars</string>
+    <string name="sort_forks">Forks</string>
+    <string name="sort_updated">Updated</string>
+
     <string name="menu_settings">Settings</string>
 
     <string name="avatar">Avatar</string>

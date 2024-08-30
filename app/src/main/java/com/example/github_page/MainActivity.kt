@@ -18,6 +18,7 @@ import com.example.github_page.auth.LoginPage
 import com.example.github_page.drawer.MainDrawer
 import com.example.github_page.drawer.ProfileViewModel
 import com.example.github_page.home.HomePage
+import com.example.github_page.search.SearchPage
 import com.example.github_page.ui.Routes
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -54,6 +55,9 @@ fun AppScaffold(
                     openDrawer = { coroutineScope.launch { drawerState.open() } },
                 )
             }
+        }
+        composable(Routes.SEARCH) {
+            SearchPage()
         }
         composable(Routes.LOGIN) {
             LoginPage(navController)
