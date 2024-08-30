@@ -12,11 +12,14 @@
     <string name="page_home">Home</string>
     <string name="page_search">Search</string>
     <string name="page_dashboard">Dashboard</string>
+    <string name="page_issue">Issue</string>
+    <string name="title_issue">Open Issue</string>
 
     <string name="open_drawer">Open Drawer</string>
 
     <string name="menu_sort">Sort</string>
     <string name="menu_more">More</string>
+    <string name="menu_back">Go Back</string>
 
     <string name="sort_stars">Stars</string>
     <string name="sort_forks">Forks</string>

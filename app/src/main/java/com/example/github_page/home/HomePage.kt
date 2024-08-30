@@ -53,7 +53,10 @@ fun HomePage(
             ) {
                 items(repoList.itemCount) {
                     val repo = repoList[it] ?: return@items
-                    RepoItem(repo = repo)
+                    RepoItem(repo = repo) {
+                        val route = "${Routes.ISSUE}/${repo.owner.name}/${repo.name}"
+                        navController.navigate(route)
+                    }
                 }
             }
         }

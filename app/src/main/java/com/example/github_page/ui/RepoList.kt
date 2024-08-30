@@ -1,5 +1,6 @@
 package com.example.github_page.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -64,14 +65,19 @@ fun <T : Any> RepoList(
 
 
 @Composable
-fun RepoItem(repo: Repo) {
+fun RepoItem(
+    repo: Repo,
+    onClick: (Repo) -> Unit = {},
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
         elevation = CardDefaults.elevatedCardElevation(4.dp),
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier
+            .padding(16.dp)
+            .clickable { onClick(repo) }) {
             Text(
                 text = repo.fullName,
                 fontSize = 18.sp,

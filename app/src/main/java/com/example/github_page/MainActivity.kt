@@ -7,18 +7,19 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.github_page.auth.LoginPage
 import com.example.github_page.dashboard.DashboardPage
 import com.example.github_page.drawer.MainDrawer
 import com.example.github_page.drawer.ProfileViewModel
 import com.example.github_page.home.HomePage
+import com.example.github_page.issue.IssuePage
 import com.example.github_page.search.SearchPage
 import com.example.github_page.ui.Routes
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,8 @@ fun AppScaffold(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
-    val startDestination = Routes.HOME
+    // val startDestination = Routes.HOME
+    val startDestination = Routes.DASHBOARD
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Routes.HOME) {
             MainDrawer(navController, drawerState, profileViewModel = profileViewModel) {
@@ -65,6 +67,17 @@ fun AppScaffold(
                     openDrawer = { coroutineScope.launch { drawerState.open() } },
                 )
             }
+        }
+        composable(
+            Routes.ISSUE_ROUTE,
+            arguments = listOf(
+                navArgument(Routes.ISSUE_OWNER_ARG) { type = NavType.StringType; },
+                navArgument(Routes.ISSUE_REPO_ARG) { type = NavType.StringType; },
+            )
+        ) {
+            val owner = it.arguments?.getString(Routes.ISSUE_OWNER_ARG)!!
+            val repo = it.arguments?.getString(Routes.ISSUE_REPO_ARG)!!
+            IssuePage(navController, owner, repo)
         }
         composable(Routes.LOGIN) {
             LoginPage(navController)

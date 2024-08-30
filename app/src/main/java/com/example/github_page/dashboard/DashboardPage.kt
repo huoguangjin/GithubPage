@@ -22,6 +22,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.github_page.R
 import com.example.github_page.ui.RepoItem
 import com.example.github_page.ui.RepoList
+import com.example.github_page.ui.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +60,10 @@ fun DashboardPage(
             ) {
                 items(repoList.itemCount) {
                     val repo = repoList[it] ?: return@items
-                    RepoItem(repo = repo)
+                    RepoItem(repo = repo) {
+                        val route = "${Routes.ISSUE}/${repo.owner.name}/${repo.name}"
+                        navController.navigate(route)
+                    }
                 }
             }
         }

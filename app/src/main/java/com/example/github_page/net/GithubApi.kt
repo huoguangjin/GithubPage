@@ -1,8 +1,11 @@
 package com.example.github_page.net
 
 import com.example.github_page.bean.GithubUser
+import com.example.github_page.bean.IssueParam
+import com.example.github_page.bean.IssueResp
 import com.example.github_page.bean.Repo
 import com.example.github_page.bean.SearchResp
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -33,4 +36,11 @@ interface GithubApi {
 
     @GET("user/repos")
     suspend fun getMyRepoList(@Query("page") page: Int): List<Repo>
+
+    @POST("repos/{owner}/{repo}/issues")
+    suspend fun openIssue(
+        @Path("owner") owner: String,
+        @Path("repo") repo: String,
+        @Body issue: IssueParam,
+    ): IssueResp
 }

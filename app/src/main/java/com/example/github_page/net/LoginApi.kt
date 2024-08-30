@@ -16,7 +16,7 @@ interface LoginApi {
 
         const val REDIRECT_URI = "ghp://callback"
         const val AUTHORIZE_URL =
-            "https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user"
+            "https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user,issue"
     }
 
     @FormUrlEncoded

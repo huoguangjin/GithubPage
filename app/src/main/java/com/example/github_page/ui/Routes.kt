@@ -6,4 +6,8 @@ object Routes {
     const val ISSUE = "issue"
     const val SEARCH = "search"
     const val LOGIN = "login"
+
+    const val ISSUE_OWNER_ARG = "owner"
+    const val ISSUE_REPO_ARG = "repo"
+    const val ISSUE_ROUTE = "$ISSUE/{$ISSUE_OWNER_ARG}/{$ISSUE_REPO_ARG}"
 }
