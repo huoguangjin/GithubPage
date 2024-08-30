@@ -1,9 +1,9 @@
 package com.example.github_page.search
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -49,27 +48,24 @@ fun SearchPage(
         },
     ) { innerPadding ->
         Column(
+            verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .wrapContentSize()
         ) {
             val query by searchViewModel.query.collectAsStateWithLifecycle()
 
-            Row(modifier = Modifier.padding(8.dp)) {
-                OutlinedTextField(
-                    value = query,
-                    onValueChange = { searchViewModel.updateQuery(it) },
-                    label = { Text("Search Repositories") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            OutlinedTextField(
+                value = query,
+                onValueChange = { searchViewModel.updateQuery(it) },
+                label = { Text("Search Repositories") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-            // Spacer(modifier = Modifier.height(16.dp))
-
+            val isRefreshing by searchViewModel.isRefreshing.collectAsStateWithLifecycle(false)
             val repoList = searchViewModel.pagingData.collectAsLazyPagingItems()
             RepoList(
-                isRefreshing = searchViewModel.isRefreshing,
+                isRefreshing = isRefreshing,
                 onRefresh = { repoList.refresh() },
                 repoList = repoList,
             ) {
