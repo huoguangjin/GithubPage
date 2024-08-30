@@ -10,7 +10,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.example.github_page.auth.AuthRepo
 import com.example.github_page.bean.GithubUser
-import com.example.github_page.net.GithubService
+import com.example.github_page.net.GithubApi
 import com.example.github_page.ui.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,6 +24,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     application: Application,
     private val authRepo: AuthRepo,
+    private val githubApi: GithubApi,
 ) : AndroidViewModel(application) {
 
     var viewState by mutableStateOf(ProfileState.success(null))
@@ -39,10 +40,6 @@ class ProfileViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    init {
-        Log.i("hgj", "ProfileViewModel")
-    }
-
     fun getCurrentUser() {
         val isLogin = authRepo.isLogin.value ?: false
         if (!isLogin) {
@@ -53,7 +50,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 viewState = ProfileState.loading(isLogin)
-                val profile = GithubService.api.getMyProfile()
+                val profile = githubApi.getMyProfile()
                 viewState = ProfileState.success(profile)
             } catch (e: Exception) {
                 viewState = ProfileState.error(e)

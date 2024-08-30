@@ -47,12 +47,6 @@ fun LoginPage(
 
         DisposableEffect(Unit) {
             onDispose {
-
-            }
-        }
-
-        DisposableEffect(Unit) {
-            onDispose {
                 CookieManager.getInstance().apply {
                     removeAllCookies {}
                     removeSessionCookies {}

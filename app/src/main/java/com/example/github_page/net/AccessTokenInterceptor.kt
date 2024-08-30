@@ -1,9 +1,12 @@
 package com.example.github_page.net
 
+import com.example.github_page.auth.AuthRepo
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class AccessTokenInterceptor(
+class AccessTokenInterceptor @Inject constructor(
+    private val authRepo: dagger.Lazy<AuthRepo>,
     private var accessToken: String? = null
 ) : Interceptor {
 
@@ -20,7 +23,7 @@ class AccessTokenInterceptor(
         val response = chain.proceed(request)
 
         if (response.code() == 401) {
-            //
+            invalidToken()
         }
 
         return response
@@ -28,5 +31,9 @@ class AccessTokenInterceptor(
 
     fun update(newToken: String?) {
         accessToken = newToken
+    }
+
+    private fun invalidToken() {
+        authRepo.get().logout()
     }
 }

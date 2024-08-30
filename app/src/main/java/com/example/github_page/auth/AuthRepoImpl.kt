@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.example.github_page.net.GithubService
+import com.example.github_page.net.AccessTokenInterceptor
 import com.example.github_page.net.LoginApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -15,6 +15,7 @@ import kotlinx.coroutines.withContext
 class AuthRepoImpl(
     private val context: Application,
     private val loginApi: LoginApi,
+    private val accessTokenInterceptor: AccessTokenInterceptor,
 ) : AuthRepo {
     companion object {
         private const val SP_NAME = "SP_AUTH"
@@ -23,7 +24,7 @@ class AuthRepoImpl(
 
     private val accessToken = MutableLiveData<String>().apply {
         observeForever {
-            GithubService.accessTokenInterceptor.update(value)
+            accessTokenInterceptor.update(value)
         }
     }
 
@@ -36,8 +37,8 @@ class AuthRepoImpl(
     }
 
     override fun logout() {
-        accessToken.value = null
         GlobalScope.launch(Dispatchers.Main) {
+            accessToken.value = null
             saveAccessToken(null)
         }
     }
