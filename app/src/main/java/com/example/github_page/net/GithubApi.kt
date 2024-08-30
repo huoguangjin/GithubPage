@@ -2,7 +2,7 @@ package com.example.github_page.net
 
 import com.example.github_page.bean.GithubUser
 import com.example.github_page.bean.IssueParam
-import com.example.github_page.bean.IssueResp
+import com.example.github_page.bean.Issue
 import com.example.github_page.bean.Repo
 import com.example.github_page.bean.SearchResp
 import retrofit2.http.Body
@@ -38,9 +38,10 @@ interface GithubApi {
     suspend fun getMyRepoList(@Query("page") page: Int): List<Repo>
 
     @POST("repos/{owner}/{repo}/issues")
-    suspend fun openIssue(
+    @Headers("Accept: application/vnd.github+json")
+    suspend fun createIssue(
         @Path("owner") owner: String,
         @Path("repo") repo: String,
         @Body issue: IssueParam,
-    ): IssueResp
+    ): Issue
 }

@@ -9,11 +9,8 @@ import com.example.github_page.bean.IssueParam
 import com.example.github_page.net.GithubApi
 import com.example.github_page.ui.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.IOException
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class IssueViewModel @Inject constructor(
@@ -41,7 +38,7 @@ class IssueViewModel @Inject constructor(
         viewModelScope.launch {
             submitState = LoadState.Loading
             try {
-                api.openIssue(owner, repo, issueParam)
+                api.createIssue(owner, repo, issueParam)
                 submitState = LoadState.Success(false)
             } catch (e: Exception) {
                 submitState = LoadState.Error(e)
