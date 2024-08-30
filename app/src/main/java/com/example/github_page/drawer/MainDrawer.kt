@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -89,16 +90,19 @@ fun MainDrawer(
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
 
-                    NavigationDrawerItem(
-                        icon = { Icon(Icons.Default.DateRange, contentDescription = null) },
-                        label = { Text(text = stringResource(id = R.string.page_dashboard)) },
-                        selected = currentRoute == Routes.DASHBOARD,
-                        onClick = {
-                            navController.navigate(Routes.DASHBOARD)
-                            scope.launch { drawerState.close() }
-                        },
-                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-                    )
+                    val isLogin by authViewModel.isLogin.observeAsState(false)
+                    if (isLogin) {
+                        NavigationDrawerItem(
+                            icon = { Icon(Icons.Default.DateRange, contentDescription = null) },
+                            label = { Text(text = stringResource(id = R.string.page_dashboard)) },
+                            selected = currentRoute == Routes.DASHBOARD,
+                            onClick = {
+                                navController.navigate(Routes.DASHBOARD)
+                                scope.launch { drawerState.close() }
+                            },
+                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                        )
+                    }
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
@@ -108,6 +112,7 @@ fun MainDrawer(
                         selected = false,
                         onClick = {
                             authViewModel.logout()
+                            navController.navigate(Routes.HOME)
                         },
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
