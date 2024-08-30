@@ -54,7 +54,11 @@ class SearchViewModel @Inject constructor(
     }
 
     fun createPager(query: String, sortType: String): Flow<PagingData<Repo>> {
-        val pagingConfig = PagingConfig(30)
+        val pageSize = 30
+        val pagingConfig = PagingConfig(
+            pageSize = pageSize,
+            initialLoadSize = pageSize,
+        )
         val initialKey = 1
 
         return buildPager(pagingConfig, initialKey) { params ->

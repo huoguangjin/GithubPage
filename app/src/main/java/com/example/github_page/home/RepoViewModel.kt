@@ -24,7 +24,8 @@ class RepoViewModel @Inject constructor(
     val pagingData: Flow<PagingData<Repo>> by lazy {
         val pageSize = 30
         val pagingConfig = PagingConfig(
-            pageSize,
+            pageSize = pageSize,
+            initialLoadSize = pageSize,
         )
         val initialKey = 1
         buildPager(pagingConfig, initialKey) { params ->
