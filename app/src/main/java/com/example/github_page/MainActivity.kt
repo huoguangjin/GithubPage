@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.github_page.auth.LoginPage
+import com.example.github_page.dashboard.DashboardPage
 import com.example.github_page.drawer.MainDrawer
 import com.example.github_page.drawer.ProfileViewModel
 import com.example.github_page.home.HomePage
@@ -40,8 +41,6 @@ fun AppScaffold(
     profileViewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val navController = rememberNavController()
-    val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = currentNavBackStackEntry?.destination?.route ?: Routes.HOME
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
@@ -58,6 +57,14 @@ fun AppScaffold(
         }
         composable(Routes.SEARCH) {
             SearchPage()
+        }
+        composable(Routes.DASHBOARD) {
+            MainDrawer(navController, drawerState, profileViewModel = profileViewModel) {
+                DashboardPage(
+                    navController,
+                    openDrawer = { coroutineScope.launch { drawerState.open() } },
+                )
+            }
         }
         composable(Routes.LOGIN) {
             LoginPage(navController)
