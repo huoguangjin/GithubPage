@@ -46,8 +46,7 @@ fun AppScaffold(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
-    // val startDestination = Routes.HOME
-    val startDestination = Routes.DASHBOARD
+    val startDestination = Routes.HOME
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Routes.HOME) {
             MainDrawer(navController, drawerState, profileViewModel = profileViewModel) {
