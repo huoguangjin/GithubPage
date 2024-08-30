@@ -72,12 +72,11 @@ fun RepoItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick(repo) },
         elevation = CardDefaults.elevatedCardElevation(4.dp),
     ) {
-        Column(modifier = Modifier
-            .padding(16.dp)
-            .clickable { onClick(repo) }) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = repo.fullName,
                 fontSize = 18.sp,
@@ -109,7 +108,6 @@ fun ErrorItem(retry: () -> Unit) {
     Button(
         onClick = { retry() },
         modifier = Modifier.padding(10.dp),
-        // colors = buttonColors(backgroundColor = AppTheme.colors.themeUi)
     ) {
         Text(text = "retry")
     }
@@ -135,7 +133,6 @@ fun LoadingItem() {
             .height(60.dp), contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
-            // color = AppTheme.colors.themeUi,
             modifier = Modifier
                 .padding(10.dp)
                 .height(50.dp)
