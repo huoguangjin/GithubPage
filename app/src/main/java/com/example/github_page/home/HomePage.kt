@@ -45,19 +45,6 @@ fun HomePage(
                 .fillMaxSize()
                 .wrapContentSize()
         ) {
-            Button(onClick = {
-                val route = Routes.LOGIN
-                navController.navigate(route)
-            }) {
-                Text(text = "Routes.LOGIN")
-            }
-            Button(onClick = {
-                val route = Routes.DASHBOARD
-                navController.navigate(route)
-            }) {
-                Text(text = "DASHBOARD")
-            }
-
             val repoList = viewModel.pagingData.collectAsLazyPagingItems()
             RepoList(
                 isRefreshing = viewModel.isRefreshing,

@@ -13,9 +13,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerState
@@ -29,8 +29,7 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,11 +40,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.github_page.R
-import com.example.github_page.bean.GithubUser
 import com.example.github_page.auth.AuthViewModel
+import com.example.github_page.bean.GithubUser
 import com.example.github_page.ui.LoadState
 import com.example.github_page.ui.Routes
 import kotlinx.coroutines.launch
@@ -59,19 +59,18 @@ fun MainDrawer(
     content: @Composable () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
-    val items =
-        listOf(
-            Icons.Default.AccountCircle,
-            Icons.Default.Email,
-            Icons.Default.AccountBox,
-        )
-    val selectedItem = remember { mutableStateOf(items[0]) }
+
+    val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentNavBackStackEntry?.destination?.route ?: Routes.HOME
 
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet(drawerState) {
-                Column(Modifier.verticalScroll(rememberScrollState()).width(300.dp)) {
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .width(dimensionResource(id = R.dimen.drawer_width))) {
                     Spacer(Modifier.height(12.dp))
 
                     DrawerHeader(
@@ -79,24 +78,33 @@ fun MainDrawer(
                         profileViewModel = profileViewModel,
                     )
 
-                    items.forEach { item ->
-                        NavigationDrawerItem(
-                            icon = { Icon(item, contentDescription = null) },
-                            label = { Text(item.name.substringAfterLast(".")) },
-                            selected = item == selectedItem.value,
-                            onClick = {
-                                scope.launch { drawerState.close() }
-                                selectedItem.value = item
-                            },
-                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-                        )
-                    }
+                    NavigationDrawerItem(
+                        icon = { Icon(Icons.Default.Home, contentDescription = null) },
+                        label = { Text(text = stringResource(id = R.string.page_home)) },
+                        selected = currentRoute == Routes.HOME,
+                        onClick = {
+                            navController.navigate(Routes.HOME)
+                            scope.launch { drawerState.close() }
+                        },
+                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                    )
+
+                    NavigationDrawerItem(
+                        icon = { Icon(Icons.Default.DateRange, contentDescription = null) },
+                        label = { Text(text = stringResource(id = R.string.page_dashboard)) },
+                        selected = currentRoute == Routes.DASHBOARD,
+                        onClick = {
+                            navController.navigate(Routes.DASHBOARD)
+                            scope.launch { drawerState.close() }
+                        },
+                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                    )
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
                     NavigationDrawerItem(
                         icon = { Icon(Icons.Default.AccountCircle, contentDescription = null) },
-                        label = { Text(text = "Logout") },
+                        label = { Text(text = stringResource(id = R.string.menu_logout)) },
                         selected = false,
                         onClick = {
                             authViewModel.logout()
