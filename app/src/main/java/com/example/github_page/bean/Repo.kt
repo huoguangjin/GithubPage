@@ -118,7 +118,7 @@ import com.google.gson.annotations.SerializedName
 }
 */
 data class Repo(
-    var id: Int = 0,
+    var id: String,
     var name: String,
 
     @SerializedName("full_name")

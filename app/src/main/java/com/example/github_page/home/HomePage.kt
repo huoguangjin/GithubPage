@@ -53,10 +53,7 @@ fun HomePage(
             ) {
                 items(repoList.itemCount) {
                     val repo = repoList[it] ?: return@items
-                    RepoItem(repo = repo) {
-                        val route = "${Routes.ISSUE}/${repo.owner.name}/${repo.name}"
-                        navController.navigate(route)
-                    }
+                    RepoItem(repo = repo)
                 }
             }
         }
@@ -80,7 +77,7 @@ fun HomeTopAppBar(
             IconButton(onClick = {
                 navController.navigate(Routes.SEARCH)
             }) {
-                Icon(Icons.Filled.Search, stringResource(id = R.string.menu_more))
+                Icon(Icons.Filled.Search, stringResource(id = R.string.menu_search))
             }
             IconButton(onClick = {
                 // TODO: 2024/08/30 add settings
