@@ -11,12 +11,12 @@ interface LoginApi {
     companion object {
         const val BASE_URL = "https://github.com/"
 
-        const val CLIENT_ID = "Ov23livcbzZRLTc5TtLc"
-        const val CLIENT_SECRET = "e26bec142e4cac214e39d4dd3540d69ebede63cd"
+        const val CLIENT_ID = "Iv23ligktWCSYDe2JP51"
+        const val CLIENT_SECRET = "402631124f5504a037683b38d13c8b6ec4ca2850"
 
         const val REDIRECT_URI = "ghp://callback"
         const val AUTHORIZE_URL =
-            "https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user,issue"
+            "https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}"
     }
 
     @FormUrlEncoded
