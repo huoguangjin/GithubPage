@@ -20,6 +20,7 @@ import com.example.github_page.drawer.ProfileViewModel
 import com.example.github_page.home.HomePage
 import com.example.github_page.issue.IssuePage
 import com.example.github_page.search.SearchPage
+import com.example.github_page.settings.SettingsPage
 import com.example.github_page.ui.Routes
 import com.example.github_page.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,11 @@ fun AppScaffold(
         }
         composable(Routes.LOGIN) {
             LoginPage(navController)
+        }
+        composable(Routes.SETTINGS) {
+            MainDrawer(navController, drawerState, profileViewModel = profileViewModel) {
+                SettingsPage()
+            }
         }
     }
 }

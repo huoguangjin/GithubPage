@@ -6,6 +6,7 @@ object Routes {
     const val ISSUE = "issue"
     const val SEARCH = "search"
     const val LOGIN = "login"
+    const val SETTINGS = "settings"
 
     const val ISSUE_OWNER_ARG = "owner"
     const val ISSUE_REPO_ARG = "repo"

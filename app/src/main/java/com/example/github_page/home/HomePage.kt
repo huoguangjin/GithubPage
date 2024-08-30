@@ -9,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,7 +22,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.github_page.R
-import com.example.github_page.auth.AuthViewModel
 import com.example.github_page.ui.RepoItem
 import com.example.github_page.ui.RepoList
 import com.example.github_page.ui.Routes
@@ -80,7 +78,7 @@ fun HomeTopAppBar(
                 Icon(Icons.Filled.Search, stringResource(id = R.string.menu_search))
             }
             IconButton(onClick = {
-                // TODO: 2024/08/30 add settings
+                navController.navigate(Routes.SETTINGS)
             }) {
                 Icon(Icons.Filled.Settings, stringResource(id = R.string.menu_settings))
             }
