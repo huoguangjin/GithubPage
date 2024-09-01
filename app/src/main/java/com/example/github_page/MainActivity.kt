@@ -20,6 +20,7 @@ import com.example.github_page.drawer.ProfileViewModel
 import com.example.github_page.home.HomePage
 import com.example.github_page.issue.IssuePage
 import com.example.github_page.search.SearchPage
+import com.example.github_page.settings.SettingsHelper
 import com.example.github_page.settings.SettingsPage
 import com.example.github_page.ui.Routes
 import com.example.github_page.ui.theme.AppTheme
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            SettingsHelper()
             AppTheme {
                 AppScaffold()
             }

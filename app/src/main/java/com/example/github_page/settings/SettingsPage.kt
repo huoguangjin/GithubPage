@@ -34,11 +34,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.github_page.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,6 +43,8 @@ import com.example.github_page.R
 fun SettingsPage(
     settingsViewModel: SettingsViewModel = hiltViewModel(LocalContext.current as AppCompatActivity),
 ) {
+    SettingsHelper()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -56,6 +55,7 @@ fun SettingsPage(
         },
     ) { innerPadding ->
         val theme by settingsViewModel.theme
+        val language by settingsViewModel.language
 
         Column(
             modifier = Modifier
@@ -66,13 +66,31 @@ fun SettingsPage(
 
             SettingsDropdownRow(
                 key = stringResource(id = R.string.settings_theme),
-                value = theme,
+                value = stringResource(id = ThemeType.toStringResId(theme)),
             ) { closeMenu ->
-                arrayOf(ThemeType.AUTO, ThemeType.LIGHT, ThemeType.DARK).forEach {
+                ThemeType.ALL.forEach {
                     DropdownMenuItem(
-                        text = { Text(text = it) },
+                        text = { Text(text = stringResource(id = ThemeType.toStringResId(it))) },
                         onClick = {
                             settingsViewModel.updateTheme(it)
+                            closeMenu()
+                        }
+                    )
+                }
+            }
+
+            HorizontalDivider()
+
+            val languageStringId = LanguageType.toStringResId(language)
+            SettingsDropdownRow(
+                key = stringResource(id = R.string.settings_language),
+                value = stringResource(id = languageStringId),
+            ) { closeMenu ->
+                LanguageType.ALL.forEach {
+                    DropdownMenuItem(
+                        text = { Text(text = stringResource(id = LanguageType.toStringResId(it))) },
+                        onClick = {
+                            settingsViewModel.updateLanguage(it)
                             closeMenu()
                         }
                     )

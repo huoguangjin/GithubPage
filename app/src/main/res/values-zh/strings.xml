@@ -1,0 +1,49 @@
+<resources>
+    <string name="menu_logout">退出账号</string>
+
+    <string name="page_home">首页</string>
+    <string name="page_search">搜索</string>
+    <string name="page_dashboard">仪表板</string>
+    <string name="page_issue">Issue</string>
+    <string name="page_settings">设置</string>
+
+    <string name="title_issue">创建Issue</string>
+    <string name="label_issue_title">Issue标题</string>
+    <string name="label_issue_content">Issue内容</string>
+    <string name="label_issue_submit">提交</string>
+
+    <string name="open_drawer">菜单</string>
+
+    <string name="menu_sort">排序</string>
+    <string name="menu_search">搜索</string>
+    <string name="menu_back">返回</string>
+
+    <string name="settings_theme">主题</string>
+    <string name="settings_language">语言</string>
+
+    <string name="theme_auto">跟随系统</string>
+    <string name="theme_light">浅色主题</string>
+    <string name="theme_dark">深色主题</string>
+
+    <string name="language_local">跟随系统</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_english">English</string>
+
+    <string name="sort_stars">Stars</string>
+    <string name="sort_forks">Forks</string>
+    <string name="sort_updated">Updated</string>
+
+    <string name="menu_settings">设置</string>
+
+    <string name="hint_retry">发生错误，点击重试</string>
+    <string name="hint_no_more_data">没有更多数据了</string>
+
+    <string name="hint_login">登录</string>
+    <string name="hint_retry_refresh_user_profile">重试用户个人信息</string>
+    <string name="hint_search_repo">搜索仓库</string>
+    <string name="hint_create_issue">创建issue: %1$s</string>
+    <string name="hint_create_issue_success">提交成功！</string>
+    <string name="hint_create_issue_failed">提交失败: %1$s</string>
+
+    <string name="avatar">头像</string>
+</resources>
