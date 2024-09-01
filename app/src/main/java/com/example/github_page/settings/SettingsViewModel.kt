@@ -16,9 +16,9 @@ class SettingsViewModel(
     private val app: Application
 ) : AndroidViewModel(app) {
     companion object {
-        private const val SP_NAME = "SP_SETTINGS"
-        private const val SP_KEY_THEME = "SP_THEME"
-        private const val SP_KEY_LANGUAGE = "SP_LANGUAGE"
+        const val SP_NAME = "SP_SETTINGS"
+        const val SP_KEY_THEME = "SP_THEME"
+        const val SP_KEY_LANGUAGE = "SP_LANGUAGE"
     }
 
     private val sp: SharedPreferences by lazy {

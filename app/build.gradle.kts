@@ -33,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.paging.runtime)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.paging.common)
     implementation(libs.paging.compose)
 
@@ -94,12 +95,20 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.gson)
 
-    implementation("com.github.bumptech.glide:glide:4.11.0") {
+    implementation(libs.glide) {
         exclude(group = "com.android.support")
     }
-    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation(libs.glide.compose)
 
     testImplementation(libs.junit)
+
+    testImplementation(libs.kotlinx.coroutines.android)
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
+    testImplementation(libs.mockito)
+    androidTestImplementation(libs.mockito.android)
+    testImplementation(libs.mockito.kotlin)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
