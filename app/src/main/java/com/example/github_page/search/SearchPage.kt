@@ -58,7 +58,7 @@ fun SearchPage(
             OutlinedTextField(
                 value = query,
                 onValueChange = { searchViewModel.updateQuery(it) },
-                label = { Text("Search Repositories") },
+                label = { Text(text = stringResource(id = R.string.hint_search_repo)) },
                 modifier = Modifier.fillMaxWidth()
             )
 

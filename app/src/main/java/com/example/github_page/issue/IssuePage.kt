@@ -82,22 +82,27 @@ fun IssuePage(
                 }
 
                 is LoadState.Success -> {
+                    val hint = stringResource(id = R.string.hint_create_issue_success)
                     LaunchedEffect(submitState) {
                         if (!submitState.isEmpty) {
-                            scope.launch { snackbarHostState.showSnackbar("submit success!") }
+                            scope.launch { snackbarHostState.showSnackbar(hint) }
                         }
                     }
                 }
 
                 is LoadState.Error -> {
+                    val message = submitState.exception.message ?: submitState.exception.toString()
+                    val hint = stringResource(id = R.string.hint_create_issue_failed, message)
                     LaunchedEffect(submitState) {
-                        val message = submitState.exception.message
-                        scope.launch { snackbarHostState.showSnackbar("submit failed: $message") }
+                        scope.launch { snackbarHostState.showSnackbar(hint) }
                     }
                 }
             }
 
-            Text(text = "Open an issue for: $owner/$repo", fontSize = 18.sp)
+            Text(
+                text = stringResource(id = R.string.hint_create_issue, "$owner/$repo"),
+                fontSize = 18.sp
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -107,7 +112,7 @@ fun IssuePage(
                     issueViewModel.updateTitle(it)
                 },
                 label = {
-                    Text("Issue title")
+                    Text(stringResource(id = R.string.label_issue_title))
                 }
             )
             TextField(
@@ -118,7 +123,7 @@ fun IssuePage(
                     issueViewModel.updateBody(it)
                 },
                 label = {
-                    Text("Issue content")
+                    Text(stringResource(id = R.string.label_issue_content))
                 }
             )
 
@@ -128,7 +133,7 @@ fun IssuePage(
                 onClick = { issueViewModel.submit(owner, repo) },
                 enabled = (submitState !is LoadState.Loading)
             ) {
-                Text(text = "Submit")
+                Text(stringResource(id = R.string.label_issue_submit))
             }
         }
     }

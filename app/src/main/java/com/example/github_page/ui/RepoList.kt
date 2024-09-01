@@ -22,11 +22,13 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.example.github_page.R
 import com.example.github_page.bean.Repo
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,14 +111,14 @@ fun ErrorItem(retry: () -> Unit) {
         onClick = { retry() },
         modifier = Modifier.padding(10.dp),
     ) {
-        Text(text = "retry")
+        Text(text = stringResource(id = R.string.hint_retry))
     }
 }
 
 @Composable
 fun NoMoreItem() {
     Text(
-        text = "no more data",
+        text = stringResource(id = R.string.hint_no_more_data),
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth(),

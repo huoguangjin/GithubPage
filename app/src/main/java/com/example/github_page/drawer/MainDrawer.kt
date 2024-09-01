@@ -185,7 +185,7 @@ fun NotLoginUserHeader(doLogin: () -> Unit) {
     Button(onClick = {
         doLogin()
     }) {
-        Text(text = "login")
+        Text(text = stringResource(id = R.string.hint_login))
     }
 }
 
@@ -194,6 +194,6 @@ fun RetryGetUserProfileHeader(profileViewModel: ProfileViewModel) {
     Button(onClick = {
         profileViewModel.getCurrentUser()
     }) {
-        Text(text = "retry to refresh user profile")
+        Text(text = stringResource(id = R.string.hint_retry_refresh_user_profile))
     }
 }
